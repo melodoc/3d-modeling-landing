@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
             return { timeRemaining, hours, minutes, seconds };
         };
 
-        const modifyZeroDate = inputDate  => {
+        const modifyZeroDate = inputDate => {
             if (inputDate >= 0 && inputDate < 10) {
                 return '0' + inputDate;
             }
@@ -76,16 +76,39 @@ window.addEventListener('DOMContentLoaded', () => {
     const togglePopUp = () => {
         const popup = document.querySelector('.popup'),
             popupBtn = document.querySelectorAll('.popup-btn'),
-            popupClose = document.querySelector('.popup-close');
+            popupClose = document.querySelector('.popup-close'),
+            popupContent = document.querySelector('.popup-content'),
+            width = document.documentElement.offsetWidth;
+
+        let popupContentInterval,
+            count = 150;
+
+        const animationSpeed = 10;
+
+        const popupContentAnimate = () => {
+            popupContentInterval = requestAnimationFrame(popupContentAnimate);
+            count -= animationSpeed;
+
+            if (count === 0) {
+                cancelAnimationFrame(popupContentInterval);
+            }
+            popupContent.style.marginTop = count + 'px';
+        };
+
 
         popupBtn.forEach((elem) => {
             elem.addEventListener('click', () => {
                 popup.style.display = 'block';
+
+                if (width >= 768) {
+                    popupContentAnimate();
+                }
             });
         });
 
         popupClose.addEventListener('click', () => {
             popup.style.display = 'none';
+            count = 150;
         });
     };
 
