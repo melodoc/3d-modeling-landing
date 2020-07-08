@@ -1,35 +1,33 @@
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
     //Timer
-    function countTimer(deadline) {
-        let timerHours = document.querySelector('#timer-hours'),
+    const countTimer = deadline => {
+        const timerHours = document.querySelector('#timer-hours'),
             timerMinutes = document.querySelector('#timer-minutes'),
             timerSeconds = document.querySelector('#timer-seconds');
 
-        function getTimeRemaining() {
-
-            let dateStop = new Date(deadline).getTime(),
+        const getTimeRemaining = () => {
+            const dateStop = new Date(deadline).getTime(),
                 dateNow = new Date().getTime(),
                 timeRemaining = (dateStop - dateNow) / 1000,
-                day = Math.floor(timeRemaining / 60 / 60 / 24),
-                hours = Math.floor(timeRemaining / 60 / 60) % 24,
+                hours = Math.floor(timeRemaining / 60 / 60), //если поставить % 24 -- у hours отвалятся часы
                 minutes = Math.floor((timeRemaining / 60) % 60),
                 seconds = Math.floor(timeRemaining % 60);
             return { timeRemaining, hours, minutes, seconds };
-        }
+        };
 
-        function modifyZeroDate(inputDate) {
-           if (inputDate >= 0 && inputDate < 10) {
-               return '0'+ inputDate;
-           } 
-           return inputDate;            
-        }
+        const modifyZeroDate = inputDate  => {
+            if (inputDate >= 0 && inputDate < 10) {
+                return '0' + inputDate;
+            }
+            return inputDate;
+        };
 
 
-        function updateClock() {
+        const updateClock = () => {
 
-            let timer = getTimeRemaining();
+            const timer = getTimeRemaining();
 
             timerHours.textContent = modifyZeroDate(timer.hours);
             timerMinutes.textContent = modifyZeroDate(timer.minutes);
@@ -42,10 +40,10 @@ window.addEventListener('DOMContentLoaded', function () {
                 timerMinutes.textContent = '00';
                 timerSeconds.textContent = '00';
             }
-        }
+        };
 
         updateClock();
-    }
+    };
 
-    countTimer('19 july 2020');
+    countTimer('10 july 2020');
 });
