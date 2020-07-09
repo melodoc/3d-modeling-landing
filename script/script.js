@@ -57,16 +57,19 @@ window.addEventListener('DOMContentLoaded', () => {
             menuItems = menu.querySelectorAll('ul>li');
 
         const handlerMenu = () => {
-            if (!menu.style.transform || menu.style.transform === `translate(-100%)`) {
+            menu.classList.toggle('active-menu');
+        /*  no animation
+        if (!menu.style.transform || menu.style.transform === `translate(-100%)`) {
                 menu.style.transform = `translate(0)`;
             } else {
                 menu.style.transform = `translate(-100%)`;
             }
+            */
         };
 
         btnMenu.addEventListener('click', handlerMenu);
         closeBtn.addEventListener('click', handlerMenu);
-        menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+        menuItems.forEach(elem => elem.addEventListener('click', handlerMenu));
     };
 
     toggleMenu();
@@ -77,8 +80,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const popup = document.querySelector('.popup'),
             popupBtn = document.querySelectorAll('.popup-btn'),
             popupClose = document.querySelector('.popup-close'),
-            popupContent = document.querySelector('.popup-content'),
-            width = document.documentElement.offsetWidth;
+            popupContent = document.querySelector('.popup-content');
 
         let popupContentInterval,
             count = 150;
@@ -96,8 +98,9 @@ window.addEventListener('DOMContentLoaded', () => {
         };
 
 
-        popupBtn.forEach((elem) => {
+        popupBtn.forEach(elem => {
             elem.addEventListener('click', () => {
+                const width = document.documentElement.clientWidth;
                 popup.style.display = 'block';
 
                 if (width >= 768) {
