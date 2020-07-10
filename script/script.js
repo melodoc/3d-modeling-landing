@@ -165,11 +165,26 @@ window.addEventListener('DOMContentLoaded', () => {
     const slider = () => {
         const slide = document.querySelectorAll('.portfolio-item'),
             btn = document.querySelectorAll('.portfolio-btn'),
-            dot = document.querySelectorAll('.dot'),
+            dots = document.querySelector('.portfolio-dots'),
             slider = document.querySelector('.portfolio-content');
 
         let currentSlide = 0,
+            dot,
             interval;
+
+        const insertDot = () => {
+            dot = document.createElement('li');
+            dot.classList.add('dot');
+            for (let i = 0; i < slide.length; i++) {
+                dot = dot.cloneNode();
+                dots.append(dot);
+            }
+
+            dot = document.querySelectorAll('.dot');
+            dot[0].classList.add('dot-active');
+        };
+
+        insertDot();
 
         const prevSlide = (elem, index, strClass) => {
             elem[index].classList.remove(strClass);
@@ -201,7 +216,7 @@ window.addEventListener('DOMContentLoaded', () => {
         slider.addEventListener('click', event => {
             event.preventDefault();
 
-            let target = event.target;
+            const target = event.target;
 
             if (!target.matches('.portfolio-btn, .dot')) {
                 return;
@@ -237,16 +252,14 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
         slider.addEventListener('mouseover', event => {
-            if (event.target.matches('.portfolio-btn') || 
-            event.target.matches('.dot')) {
+            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
                 stopSlide();
             }
         });
 
 
         slider.addEventListener('mouseout', event => {
-            if (event.target.matches('.portfolio-btn') || 
-            event.target.matches('.dot')) {
+            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
                 startSlide();
             }
         });
