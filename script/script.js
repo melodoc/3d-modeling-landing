@@ -49,6 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //Menu
 
+
     const toggleMenu = () => {
 
         const menu = document.querySelector('menu');
@@ -61,12 +62,16 @@ window.addEventListener('DOMContentLoaded', () => {
             const target = event.target;
 
             const closestBtnMenu = target.closest('.menu'),
-                closestMenu = target.closest('menu'),
                 closestCloseBtn = target.closest('.close-btn'),
-                closestMenuItems = target.closest('.active-menu ul>li');
+                closestMenuItems = target.closest('.active-menu ul>li'),
+                closestActiveMenu = target.closest('.active-menu');
 
-            if (closestBtnMenu || closestMenu || closestCloseBtn || closestMenuItems) {
+            if (closestBtnMenu || closestCloseBtn || closestMenuItems) {
                 handlerMenu();
+            }
+
+            if (!closestActiveMenu && !closestBtnMenu) {
+                menu.classList.remove('active-menu');
             }
         });
     };
@@ -118,6 +123,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 target = target.closest('.popup-content');
                 if (!target) {
                     popup.style.display = 'none';
+                    count = 150;
                 }
             }
         });
