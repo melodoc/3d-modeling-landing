@@ -45,7 +45,7 @@ window.addEventListener('DOMContentLoaded', () => {
         updateClock();
     };
 
-    countTimer('12 july 2020');
+    countTimer('16 july 2020');
 
     //Menu
 
@@ -274,4 +274,45 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     slider();
+
+    //Change photos
+
+    const changePhoto = () => {
+        const commandPhoto = document.querySelectorAll('.command__photo');
+
+        commandPhoto.forEach(elem => {
+            const scrImg = elem.getAttribute('src');
+
+            elem.addEventListener('mouseenter', event => {
+                const target = event.target;
+                target.src = target.dataset.img;
+            });
+
+            elem.addEventListener('mouseout', event => {
+                const target = event.target;
+                target.src = scrImg;
+            });
+        });
+    };
+
+
+    changePhoto();
+
+    // Only digits input allowed
+
+    const checkDigitsInput = () => {
+        const calcBlock = document.querySelector('.calc-block');
+
+        calcBlock.addEventListener('input', event => {
+            const target = event.target;
+            const input = target.closest('input');
+
+            if (input) {
+                input.value = input.value.replace(/\D/, '');
+            }
+        });
+    };
+
+    checkDigitsInput();
+
 });
