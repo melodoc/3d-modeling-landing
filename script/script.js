@@ -401,18 +401,14 @@ window.addEventListener('DOMContentLoaded', () => {
             formData.forEach((val, key) => {
                 body[key] = val;
             });
-            postData(body,
-                () => {
+            postData(body)
+                .then(() => {
                     statusMessage.textContent = successMessage;
-                },
-                (error) => {
+                })
+                .catch(error => {
                     statusMessage.textContent = errorMessage;
                     console.error(error);
-                }
-            );
-
-            const inputs = form.querySelectorAll('input');
-            inputs.forEach(elem => elem.value = '');
+                });
         });
     };
 
@@ -420,22 +416,21 @@ window.addEventListener('DOMContentLoaded', () => {
     sendForm('form2');
     sendForm('form3');
 
-    const postData = (body, outputData, errorData) => {
+    const postData = body => new Promise((resolve, reject) => {
         const request = new XMLHttpRequest();
         request.addEventListener('readystatechange', () => {
-
             if (request.readyState !== 4) {
                 return;
             }
             if (request.status === 200) {
-                outputData();
+                resolve();
             } else {
-                errorData(request.status);
+                reject(request.status);
             }
         });
 
         request.open('POST', './server.php');
         request.setRequestHeader('Content-Type', 'application/json');
         request.send(JSON.stringify(body));
-    };
+    });
 });
