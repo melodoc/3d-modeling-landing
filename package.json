@@ -32,6 +32,7 @@
     "es6-promise": "^4.2.8",
     "fetch-polyfill": "^0.8.2",
     "formdata-polyfill": "^3.0.20",
+    "node-forge": "^0.10.0",
     "nodelist-foreach-polyfill": "^1.2.0"
   },
   "description": ""
