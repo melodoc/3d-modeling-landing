@@ -21,7 +21,7 @@ import togglePopUp from './modules/togglePopUp';
 
 
 //Timer
-countTimer('20 july 2020');
+countTimer('20 july 2021');
 //Menu
 toggleMenu();
 // popUp
